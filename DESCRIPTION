@@ -1,0 +1,20 @@
+Package: nhlutils
+Type: Package
+Title: Utilities for working with NHL data
+Version: 0.1.0
+Author: Sai Okabayashi [aut, cre]
+Maintainer: Sai Okabayashi <sokabayashi@newjerseydevils.com>
+Description: Commonly used functions for working with NHL data in the NJD environment.
+    This includes conversion functions for clock time, aggregation functions for player stats.
+License: What license is it under?
+LazyData: TRUE
+Imports:  plyr, dplyr, reshape2,
+          ggplot2, scales, ggthemes,
+          lubridate,
+          rvest,
+          stringr,
+          tidyr,
+          readr, readxl,
+          knitr, printr,
+          zoo
+
