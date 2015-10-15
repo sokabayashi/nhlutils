@@ -1,3 +1,16 @@
+#' nhlutils: A package for working with data scraped from NHL.com
+#'
+#' The nhlutils package provides functions to handle the annoying little
+#' problems that commonly emerge when working with NHL data:
+#'  time formats
+#'  player and team names
+#'
+#'  @section Time functions:
+#'
+#'  @docType package
+#'  @name nhlutils
+NULL
+
 clean_teamName3 <- function( value ) {
   value %>% gsub( "T.B", "TBL", ., fixed=T ) %>%
     gsub( "N.J", "NJD", ., fixed=T ) %>%
@@ -11,7 +24,13 @@ get_game_id10 <- function( season, session_id, game_id4 ) {
 }
 
 
-## capitalize first letter of ....?
+
+#' Capitalize the first letter of each word (usually names)
+#'
+#' @param x A name, first and last separated by space
+#' @return String with first letter capitalized
+#' @examples
+#' simple_cap( "ben smith" )
 simple_cap <- function(x) {
   s <- strsplit(x, " ")[[1]]
   paste(toupper(substring(s, 1,1)), substring(s, 2),
@@ -19,19 +38,19 @@ simple_cap <- function(x) {
 }
 
 ## http://stackoverflow.com/questions/5186972/how-to-convert-time-mmss-to-decimal-form-in-r
-time_convert <- function(x, y) {
+time_convert <- function(x, y, digits=3) {
   x <- as.numeric(x)
   y <- as.numeric(y)
 
-  round( x + (y/60), 3 )
+  round( x + (y/60), digits )
 }
 
-time_convert_mmss <- function( mmss ) {
+time_convert_mmss <- function( mmss, digits=3 ) {
   split <- mmss %>% as.character() %>% strsplit( ":" )
   mm    <- split %>% pluck(1) %>% as.numeric()
   ss    <- split %>% pluck(2) %>% as.numeric()
 
-  round( mm + (ss/60), 3 )
+  round( mm + (ss/60), digits )
 }
 
 time_convert_back <- function(x) {
