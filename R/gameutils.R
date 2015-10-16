@@ -63,7 +63,7 @@ get_todays_games_df <- function(back = 0, game_date=NULL) {
   }
 
   gc_gamelist <- gc_get %>% html_node( "p") %>% html_text()
-  gc_gamelist <- gsub( "loadScoreBoard", '', gc_gamelist, fixed=T)
+  gc_gamelist <- gsub( "loadScoreBoard", '', gc_gamelist, fixed=T )
   gc_gamelist <- sub('[^\\{]*', '', gc_gamelist) # remove function name and opening parenthesis
   gc_gamelist <- sub('\\)\n$',  '', gc_gamelist) # remove closing parenthesis and \n
   gc_gamelist <- fromJSON( gc_gamelist )
@@ -76,6 +76,9 @@ get_todays_games_df <- function(back = 0, game_date=NULL) {
   print( gc_gamelist %>% select( ata, hta, id ) )
 
   games_df <- gc_gamelist$id %>% split_game_id10()
+  games_df$away_team_short <- gc_gamelist$ata
+  games_df$home_team_short <- gc_gamelist$hta
+
   message( game_date, " games, according to GC: ", paste( games_df$game_id4, collapse = " " ) )
 
   games_df
