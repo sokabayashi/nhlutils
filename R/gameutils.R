@@ -42,11 +42,11 @@ get_ha_number <- function( ha, number ) {
 #' Get today's games from GameCenter Live site
 #'
 #' @param back Days back from today (Sys.Date()).  0 is today, -1 is yestday.
-#' @param game_date String in YYYMMDD form
+#' @param game_date String in YYYMMDD form.
+#' use game_date if both back and game_date are specified.
 #' @return Data frame of season, session_id, game_id4, for game_date games.
 #' @export
 get_todays_games_df <- function(back = 0, game_date=NULL) {
-  ## use back = -1 for yesterday, for example
 
   if( is.null(game_date) ) {
     game_date <- format(Sys.Date() + back, "%Y-%m-%d")
