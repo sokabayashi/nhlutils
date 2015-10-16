@@ -6,6 +6,8 @@ Authors@R: person( "Sai", "Okabayashi", email = "sokabayashi@newjerseydevils.com
   role = c( "aut", "cre" ) )
 Description: Commonly used functions for working with NHL data in the NJD environment.
     This includes conversion functions for clock time, aggregation functions for player stats.
+URL: https://github.com/sokabayashi/nhlutils
+BugReports: https://github.com/sokabayashi/nhlutils/issues
 License: What license is it under?
 LazyData: TRUE
 Depends:
