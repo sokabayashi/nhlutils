@@ -13,6 +13,10 @@ get_game_id10(season, session_id, game_id4)
 
 \item{game_id4}{String like "0097"}
 }
+\value{
+10-char game ID.  NOTE: uses season *start* ("2015" of "20152016").
+This is GC convention, not mine.
+}
 \description{
 Convert (season, session_id, game_id4) triplet into game_id10
 }

@@ -3,6 +3,7 @@
 export(clean_team_short)
 export(clock_time_to_start_cum)
 export(get_game_id10)
+export(get_gc_rosters)
 export(get_ha_number)
 export(get_todays_games_df)
 export(simple_cap)
