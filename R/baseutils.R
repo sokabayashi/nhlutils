@@ -57,7 +57,7 @@ clock_time_to_start_cum <- function( period, clock_time, session_id="2", round=3
 #' @return corrected (if necessary) team_short.
 #'    Unchanged, unless team is T.B, N.J, S.J, or L.A.
 #' @examples
-#' clean( "T.B" )
+#' clean_team_short( "T.B" )
 #' @export
 clean_team_short <- function( team_short ) {
   team_short %>%

@@ -17,6 +17,6 @@ corrected (if necessary) team_short.
 Convert 3-ltter team name to our standard 3-letter team_short
 }
 \examples{
-clean( "T.B" )
+clean_team_short( "T.B" )
 }
 
