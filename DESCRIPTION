@@ -9,19 +9,10 @@ Description: Commonly used functions for working with NHL data in the NJD enviro
 License: What license is it under?
 LazyData: TRUE
 Depends:
-    plyr,
-    dplyr,
-    reshape2,
-    ggplot2,
-    scales,
-    ggthemes,
-    lubridate,
-    rvest,
-    stringr,
-    tidyr,
-    readr,
-    readxl,
+    plyr, dplyr, reshape2, tidyr, rvest,
+    ggplot2, scales, ggthemes,
+    lubridate, stringr,
+    readr, readxl, RPostgres, xml2,
     jsonlite,
-    knitr,
-    printr,
+    knitr, printr,
     zoo
