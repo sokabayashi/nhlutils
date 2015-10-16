@@ -12,5 +12,5 @@
 NULL
 
 .onAttach <- function( libname, pkgname ) {
-  packageStartupMessage( "nhlutils loads Hadleyverse as well as some new NHL-specific utilities.")
+  packageStartupMessage( "nhlutils loads Hadleyverse as well as some NHL data specific utilities." )
 }
