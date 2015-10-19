@@ -10,14 +10,12 @@ Description: Commonly used functions for working with NHL data in the NJD enviro
     This includes conversion functions for clock time, aggregation functions for player stats.
 URL: https://github.com/sokabayashi/nhlutils
 BugReports: https://github.com/sokabayashi/nhlutils/issues
-License: What license is it under?
+License: file LICENSE
 LazyData: TRUE
-Depends: plyr,
-    dplyr, reshape2,
-    tidyr, rvest,
+Depends:
+    plyr, dplyr, reshape2, tidyr, rvest,
     ggplot2, scales, ggthemes,
     lubridate, stringr,
-    readr, readxl, RPostgres, xml2,
     jsonlite,
-    knitr, printr,
-    zoo
+    zoo,
+    readr, readxl
