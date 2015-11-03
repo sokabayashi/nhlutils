@@ -10,6 +10,8 @@
 #'  @docType package
 #'  @name nhlutils
 NULL
+#> NULL
+
 
 .onAttach <- function( libname, pkgname ) {
   packageStartupMessage( "Load Hadleyverse as well as some NHL data specific utilities." )

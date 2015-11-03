@@ -6,16 +6,26 @@ Authors@R: c(person( "Sai", "Okabayashi", email = "sokabayashi@newjerseydevils.c
   role = c( "aut", "cre" ) ) )
 Author: Sai Okabayashi [aut, cre]
 Maintainer: Sai Okabayashi <sokabayashi@newjerseydevils.com>
-Description: Commonly used functions for working with NHL data in the NJD environment.
-    This includes conversion functions for clock time, aggregation functions for player stats.
+Description: Commonly used functions for working with NHL data in the NJD
+    environment. This includes conversion functions for clock time, aggregation
+    functions for player stats.
 URL: https://github.com/sokabayashi/nhlutils
 BugReports: https://github.com/sokabayashi/nhlutils/issues
 License: file LICENSE
 LazyData: TRUE
 Depends:
-    plyr, dplyr, reshape2, tidyr, rvest,
-    ggplot2, scales, ggthemes,
-    lubridate, stringr,
+    plyr,
+    dplyr,
+    reshape2,
+    tidyr,
+    rvest,
+    ggplot2,
+    scales,
+    ggthemes,
+    lubridate,
+    stringr,
     jsonlite,
     zoo,
-    readr, readxl
+    readr,
+    readxl
+RoxygenNote: 5.0.0
