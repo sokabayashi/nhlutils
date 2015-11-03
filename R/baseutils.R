@@ -4,7 +4,7 @@
 #' Convert MM:SS time to MM + SS/60.
 #'
 #' @param mmss A time in MM:SS format
-#' @return Roudned numeric value of decimal time.
+#' @return Rounded numeric value of decimal time.
 #' @export
 #' @examples
 #' time_mmss_to_decimal( "5:16" )

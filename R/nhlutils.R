@@ -1,16 +1,19 @@
 #' nhlutils: A package for working with data scraped from NHL.com
 #'
 #' The nhlutils package provides functions to handle the
-#' problems that commonly emerge when working with NHL data.
+#' problems that frequently emerge when working with NHL data.
 #'
-#'  @section baseutils:
-#'  These are simple functions to deal with frequently occuring
-#'  conversions of time and name formats.
+#'  baseutils:
+#'  These are simple functions to deal with conversions of time
+#'  and name formats.
 #'
-#'  @docType package
-#'  @name nhlutils
-NULL
-#> NULL
+#'  gameutils:
+#'  working with NHL-specific game data, involving their standard formats
+#'  for season, session, game IDs.
+#'
+#' @details Details
+"_PACKAGE"
+
 
 
 .onAttach <- function( libname, pkgname ) {
