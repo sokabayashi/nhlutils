@@ -160,3 +160,102 @@ get_gc_rosters <- function( season="20152016", session_id="2", game_id4="0001" )
 
   return( gc_rosters )
 }
+
+
+#' Get Game Summary url
+#'
+#' @param season String, "20152016"
+#' @param session_id String "2" or "3"
+#' @param game_id4 String "0001"
+#'
+#' @return string
+#' @export
+#'
+#' @examples get_gs_url( "20152016", "2", "0001" )
+get_gs_url <- function( season, session_id, game_id4 ) {
+  sprintf( "http://www.nhl.com/scores/htmlreports/%s/GS0%s%s.HTM", season, session_id, game_id4 )
+}
+
+
+#' Get df of PP results from GS scraped PP vector.
+#'
+#' @param pp_results_vector Vector scraped from GS of form ( "1-3", "02:12" )
+#' @param strength string
+#'
+#' @return Data frame of PP results from one strength scenario
+#' @export
+#'
+get_pp_results_df <- function( pp_results_vector, strength="5v4" ) {
+  if( length(pp_results_vector) <=1 ) {
+    return( data_frame() )
+  }
+
+  data_frame( strength=strength, conversion=pp_results_vector[1], time=pp_results_vector[2] )
+}
+
+
+#' Bind PP dfs together
+#'
+#' @param this_team_short String of 3-letter short team name.
+#' @param pp_5v4 Vector scraped from GS
+#' @param pp_5v3 Vector scraped from GS
+#' @param pp_4v3 Vector scraped from GS
+#'
+#' @return Data frame
+#' @export
+#'
+bind_pp_df <- function( this_team_short, pp_5v4, pp_5v3, pp_4v3 ) {
+  pp_df <- data_frame()
+  pp_df <- bind_rows( pp_df,
+    get_pp_results_df( pp_5v4, "5v4" ),
+    get_pp_results_df( pp_5v3, "5v3" ),
+    get_pp_results_df( pp_4v3, "4v3" ) )
+
+  pp_df <- cbind( team_short=this_team_short, pp_df, stringsAsFactors = F )
+
+  pp_df
+}
+
+
+
+#' Get PP results data frame from a single game
+#'
+#' @param season String for season, e.g., "20152016"
+#' @param session_id String for session id, "2" or "3"
+#' @param game_id4 String of 4-digit game ID, e.g.,  "0003"
+#' @param team_tbl Collected team_tbl
+#'
+#' @return Data frame with PP results for this game
+#' @export
+#'
+get_pp_results <- function( season, session_id, game_id4, team_tbl ) {
+  gs_url <- get_gs_url( season, session_id, game_id4 )
+  gs_html <- gs_url %>% read_html()
+
+  pp_5v4 <- gs_html %>% html_nodes( "tr:nth-child(11) .border td:nth-child(1)" ) %>% html_text()
+  pp_5v3 <- gs_html %>% html_nodes( "tr:nth-child(11) .border td:nth-child(2)" ) %>% html_text()
+  pp_4v3 <- gs_html %>% html_nodes( "tr:nth-child(11) .border td:nth-child(3)" ) %>% html_text()
+
+  # away then home
+  teams <- gs_html %>% html_nodes( "#VPenaltySummary .border" ) %>% html_text() %>% str_to_title()
+  away_team_short <- team_tbl %>% filter( name==teams[1] ) %>% select( name_short ) %>% unlist(use.names = F)
+  home_team_short <- team_tbl %>% filter( name==teams[2] ) %>% select( name_short ) %>% unlist(use.names = F)
+
+  away_5v4 <- pp_5v4[2] %>% str_split( "/") %>% unlist()
+  home_5v4 <- pp_5v4[4] %>% str_split( "/") %>% unlist()
+  away_5v3 <- pp_5v3[2] %>% str_split( "/") %>% unlist()
+  home_5v3 <- pp_5v3[4] %>% str_split( "/") %>% unlist()
+  away_4v3 <- pp_4v3[2] %>% str_split( "/") %>% unlist()
+  home_4v3 <- pp_4v3[4] %>% str_split( "/") %>% unlist()
+
+  away_pp_df <- bind_pp_df( away_team_short, away_5v4, away_5v3, away_4v3 )
+  home_pp_df <- bind_pp_df( home_team_short, home_5v4, home_5v3, home_4v3 )
+  game_pp_df <- bind_rows( away_pp_df, home_pp_df )
+
+  game_pp_df <- game_pp_df %>% separate( conversion, c("goals", "ppo" ), sep= "-", convert=T )
+  game_pp_df <- game_pp_df %>% mutate( time=time_mmss_to_decimal(time) )
+
+  game_pp_df <- cbind( season=season, session_id=session_id, game_id4=game_id4, game_pp_df )
+
+  game_pp_df
+}
