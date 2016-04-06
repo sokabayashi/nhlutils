@@ -16,8 +16,10 @@ LazyData: TRUE
 Depends:
     plyr,
     dplyr,
+    magrittr,
     reshape2,
     tidyr,
+    tibble,
     rvest,
     ggplot2,
     scales,
