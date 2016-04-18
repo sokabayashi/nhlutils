@@ -35,9 +35,10 @@ get_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE 
     mutate(
       made_playoffs = str_detect( team_long, "\\*" ),
       team_long     = gsub( "\\*", "", team_long ),
+      team_long     = gsub( "Mighty Ducks of Anaheim", "Anaheim Ducks", team_long ),
       g_net         = gf - ga,
       pp_diff       = ppo - ppoa,
-      ppg_pct       = gf_pp / gf
+      ppg_pct       = round( gf_pp / gf*100, 2 )
   )
 
   if( !is.null( team_tbl ) ) {
@@ -48,8 +49,8 @@ get_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE 
     if( use_current_names ) {
       season_standings <- season_standings %>%
         mutate(
-          team_short    = gsub( "PHX", "ARI", team_long ),
-          team_short    = gsub( "ATL", "WPG", team_long ),
+          team_short    = gsub( "PHX", "ARI", team_short ),
+          team_short    = gsub( "ATL", "WPG", team_short ),
           team_season   = paste0( team_short, " ", season_end )
         )
     }
