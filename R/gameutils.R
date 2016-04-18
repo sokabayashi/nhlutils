@@ -29,6 +29,16 @@ split_game_id10 <- function( game_id10 ) {
   data_frame( season, session_id, game_id4 )
 }
 
+#' Get Season end YYYY from season string
+#'
+#' @param season_str String in form YYYYYYYY, e.g., "20152016"
+#'
+#' @return Numeric YYYY of season end, 2016 in above example
+#' @export
+#'
+get_season_end <- function( season_str ) {
+  substr( season_str, 5, 8 ) %>% as.numeric()
+}
 
 #' Convert (ha, number) pair into ha_number
 #'
