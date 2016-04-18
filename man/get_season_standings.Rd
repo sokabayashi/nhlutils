@@ -4,7 +4,7 @@
 \alias{get_season_standings}
 \title{Get Season standings from hockey-reference.com}
 \usage{
-get_season_standings(season, team_tbl)
+get_season_standings(season, team_tbl = NULL)
 }
 \arguments{
 \item{season}{String for season, e.g., "20152016"}
