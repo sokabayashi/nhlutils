@@ -4,15 +4,18 @@
 \alias{get_season_standings}
 \title{Get Season standings from hockey-reference.com}
 \usage{
-get_season_standings(season, team_tbl = NULL)
+get_season_standings(season, team_tbl = NULL, use_current_names = TRUE)
 }
 \arguments{
 \item{season}{String for season, e.g., "20152016"}
 
 \item{team_tbl}{Team tbl from nhl_db}
+
+\item{use_current_names}{Flag for whether or not to use updated team_short everywhere, e.g., WPG in place of ATL.
+only releveant when team_tbl is provided (won't have team_short otherwise).  Default is TRUE.}
 }
 \value{
-data frame of standings
+data frame of standings.  Note the gf/ga *exclude* shootout wins
 }
 \description{
 Get Season standings from hockey-reference.com

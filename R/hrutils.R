@@ -6,11 +6,13 @@
 #'
 #' @param season String for season, e.g., "20152016"
 #' @param team_tbl Team tbl from nhl_db
+#' @param use_current_names Flag for whether or not to use updated team_short everywhere, e.g., WPG in place of ATL.
+#' only releveant when team_tbl is provided (won't have team_short otherwise).  Default is TRUE.
 #'
 #' @return data frame of standings.  Note the gf/ga *exclude* shootout wins
 #' @export
 #'
-get_season_standings <- function( season, team_tbl=NULL ) {
+get_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE ) {
   season_end <- get_season_end( this_season )
   season_url     <- sprintf( "http://www.hockey-reference.com/leagues/NHL_%s.html", season_end )
   season_html    <- season_url %>% read_html()
@@ -32,13 +34,25 @@ get_season_standings <- function( season, team_tbl=NULL ) {
     filter( team_long != "League Average" ) %>%
     mutate(
       made_playoffs = str_detect( team_long, "\\*" ),
-      team_long     = gsub( "\\*", "", team_long )
+      team_long     = gsub( "\\*", "", team_long ),
+      g_net         = gf - ga,
+      pp_diff       = ppo - ppoa,
+      ppg_pct       = gf_pp / gf
   )
 
   if( !is.null( team_tbl ) ) {
     season_standings <- season_standings %>%
       left_join( team_tbl %>% select(team_long=name, conference, division, team_short=name_short), by= "team_long" ) %>%
       arrange( desc(pts) )
+
+    if( use_current_names ) {
+      season_standings <- season_standings %>%
+        mutate(
+          team_short    = gsub( "PHX", "ARI", team_long ),
+          team_short    = gsub( "ATL", "WPG", team_long ),
+          team_season   = paste0( team_short, " ", season_end )
+        )
+    }
   }
 
   season_standings
