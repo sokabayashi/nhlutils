@@ -2,7 +2,7 @@
 # Hockey-reference functions ----------------------------------------------
 
 
-#' Get Season standings from hockey-reference.com
+#' Scrape season standings from hockey-reference.com
 #'
 #' @param season String for season, e.g., "20152016"
 #' @param team_tbl Team tbl from nhl_db
@@ -12,7 +12,7 @@
 #' @return data frame of standings.  Note the gf/ga *exclude* shootout wins
 #' @export
 #'
-get_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE ) {
+scrape_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE ) {
   season_end <- get_season_end( this_season )
   season_url     <- sprintf( "http://www.hockey-reference.com/leagues/NHL_%s.html", season_end )
   season_html    <- season_url %>% read_html()
