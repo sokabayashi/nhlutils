@@ -4,10 +4,11 @@
 \alias{scrape_season_standings}
 \title{Scrape season standings from hockey-reference.com}
 \usage{
-scrape_season_standings(season, team_tbl = NULL, use_current_names = TRUE)
+scrape_season_standings(season_str, team_tbl = NULL,
+  use_current_names = TRUE)
 }
 \arguments{
-\item{season}{String for season, e.g., "20152016"}
+\item{season_str}{String for season, e.g., "20152016"}
 
 \item{team_tbl}{Team tbl from nhl_db}
 

@@ -4,7 +4,7 @@
 
 #' Scrape season standings from hockey-reference.com
 #'
-#' @param season String for season, e.g., "20152016"
+#' @param season_str String for season, e.g., "20152016"
 #' @param team_tbl Team tbl from nhl_db
 #' @param use_current_names Flag for whether or not to use updated team_short everywhere, e.g., WPG in place of ATL.
 #' only releveant when team_tbl is provided (won't have team_short otherwise).  Default is TRUE.
@@ -12,8 +12,8 @@
 #' @return data frame of standings.  Note the gf/ga *exclude* shootout wins
 #' @export
 #'
-scrape_season_standings <- function( season, team_tbl=NULL, use_current_names=TRUE ) {
-  season_end <- get_season_end( this_season )
+scrape_season_standings <- function( season_str, team_tbl=NULL, use_current_names=TRUE ) {
+  season_end <- get_season_end( season_str )
   season_url     <- sprintf( "http://www.hockey-reference.com/leagues/NHL_%s.html", season_end )
   season_html    <- season_url %>% read_html()
   all_standings  <- season_html %>% html_node( "#teams" ) %>% html_table()

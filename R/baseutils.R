@@ -9,11 +9,22 @@
 #' @examples
 #' time_mmss_to_decimal( "5:16" )
 time_mmss_to_decimal <- function( mmss, digits=3 ) {
-  split <- mmss %>% as.character() %>% strsplit( ":" )
-  mm    <- split %>% pluck(1) %>% as.numeric()
-  ss    <- split %>% pluck(2) %>% as.numeric()
 
-  round( mm + (ss/60), digits )
+  split <- mmss %>% as.character() %>% strsplit( ":" )
+
+  ret_df <- ldply( split, function(x) {
+    mm <- ifelse( length(x) >= 1,
+                  x[[1]] %>% as.numeric(), NA )
+    ss <- ifelse( length(x) > 1,
+                  x[[2]] %>% as.numeric(), 0 )
+    data_frame( mm=mm, ss=ss )
+  } )
+
+  # split_length <- lapply( split, length )
+  # mm    <- split %>% pluck(1) %>% as.numeric()
+  # ss    <- ifelse( split_length > 1, split %>% pluck(2) %>% as.numeric(), 0 )
+
+  round( ret_df$mm + (ret_df$ss/60), digits )
 }
 
 #' Convert x.y decimal time to MM:SS.
@@ -22,6 +33,7 @@ time_mmss_to_decimal <- function( mmss, digits=3 ) {
 #' @return a string of time
 #' @export
 time_decimal_to_mmss <- function( time_decimal ) {
+
   mm      <- floor( time_decimal )
   mm_frac <- time_decimal %% 1
   paste0(mm, ":", sprintf("%02d", round(mm_frac * 60, 0)))
