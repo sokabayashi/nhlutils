@@ -4,10 +4,12 @@
 \alias{height_to_inches}
 \title{Height to inches.}
 \usage{
-height_to_inches(ht)
+height_to_inches(ht, sep = "'")
 }
 \arguments{
 \item{ht}{String of height in form 5'11" or 5'11.}
+
+\item{sep}{String of foot-inches separator, default to "'".}
 }
 \value{
 Integer of height in inches

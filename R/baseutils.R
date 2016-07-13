@@ -95,15 +95,16 @@ simple_cap <- function(x) {
 #' Height to inches.
 #'
 #' @param ht String of height in form 5'11" or 5'11.
+#' @param sep String of foot-inches separator, default to "'".
 #'
 #' @return Integer of height in inches
 #' @export
 #'
 #' @examples height_to_inches( "5'11" )
-height_to_inches <- function( ht ) {
+height_to_inches <- function( ht, sep="'" ) {
   if( is.na( ht) ) return( NA )
 
-  split <- strsplit( ht, "'" ) %>% unlist()
+  split <- strsplit( ht, sep ) %>% unlist()
 
   as.numeric(split[1])*12 + extract_numeric( split[2])
 }
