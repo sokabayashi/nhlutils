@@ -106,7 +106,7 @@ height_to_inches <- function( ht, sep="'" ) {
 
   split <- strsplit( ht, sep ) %>% unlist()
 
-  as.numeric(split[1])*12 + extract_numeric( split[2])
+  as.numeric(split[1])*12 + parse_number( split[2])
 }
 
 
